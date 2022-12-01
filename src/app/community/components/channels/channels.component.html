@@ -1,0 +1,31 @@
+<main class="container">
+	<div class="channels">
+		<h1>Channels</h1>
+		<section class="channels__popular">
+			<h3>Most popular</h3>
+			<div class="channels__popular-items">
+				<div class="channels__popular-item" *ngFor="let channel of popularChannels">
+					<img [src]="channel.channelImage" alt="{{channel.channelName}}" title="{{channel.channelName}}" [routerLink]="['/articles',channel.id,'posts']">
+				</div>
+			</div>
+		</section>
+		<section class="channels__lists">
+			<div class="channels__lists-item">
+				<!-- <h3 class="title">All channels</h3>
+				<form class="list__query" [formGroup]="searchForm">
+					<input 
+						type="text" 
+						class="searchbox"
+						placeholder=" &#xF002;  Search"
+						style="font-family:Arial, FontAwesome"
+						formControlName="search">
+				</form> -->
+				<app-channels-list></app-channels-list>
+			</div>
+			<div class="channels__lists-item">
+				<h3 class="title">Discussions & Articles</h3>
+				<app-articles-list></app-articles-list>
+			</div>
+		</section>
+	</div>
+</main>

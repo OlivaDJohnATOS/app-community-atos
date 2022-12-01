@@ -1,0 +1,97 @@
+<main class="users">
+	<section class="users__filter">
+		<input
+			type="text"
+			placeholder=" &#xF002; Search here"
+			name="filter"
+			id="filter"
+			style="font-family: Arial, FontAwesome"
+			class="users__filter-filter"
+			[(ngModel)]="filterInputText"
+		/>
+		<select
+			name="selection"
+			id="selection"
+			class="users__filter-select"
+			[(ngModel)]="filterType"
+		>
+			<option value="None" selected>No filter</option>
+			<option value="Name">Name</option>
+			<option value="Email">Email</option>
+			<option value="Title">Title</option>
+		</select>
+	</section>
+	<section class="users__list">
+		<div class="users__list-menu">
+			<p *ngIf="filterInputText.length > 0" class="users__quantity">Users ({{ (users| filterUsers: filterType:filterInputText).length }}/{{users.length}})</p>
+			<p *ngIf="filterInputText.length == 0" class="users__quantity">Users: {{users.length}}</p>
+			<button class="disable__user" (click)="handleDisableUser()">
+				Disable
+			</button>
+			<i class="fa-solid fa-gear"></i>
+		</div>
+
+		<div class="users__list-header">
+			<div class="users__list-check">
+				<label class="container">
+					<input
+						type="checkbox"
+						[(ngModel)]="usersParentCheckbox"
+						[value]="-1"
+						(change)="onChangeUsers($event)"
+					/>
+					<span class="checkmark"></span>
+				</label>
+			</div>
+			<div class="users__list-name" (click)="sortHandler('Name')">Name</div>
+			<div class="users__list-email" (click)="sortHandler('Email')">Email</div>
+			<div class="users__list-title" (click)="sortHandler('Title')">Title</div>
+			<div class="users__list-date">Date Modified</div>
+			<div class="users__list-karma">Karma</div>
+			<div class="users__list-options"></div>
+		</div>
+
+		<div
+			class="users__list-table"
+			*ngFor="let user of users | filterUsers: filterType:filterInputText | sortUsers:sortOrder:sortColumn"
+		>
+			<div class="users__list-user">
+				<div class="users__list-check">
+					<label class="container">
+						<input
+							type="checkbox"
+							class="users-checkbox-child"
+							[value]="user.id"
+							[checked]="user.checked"
+							(change)="onChangeUsers($event)"
+						/>
+						<span class="checkmark"></span>
+					</label>
+				</div>
+				<div class="users__list-name">
+					<img
+						class="users-pfp"
+						src={{user.profilePicture}}
+						alt=""
+					/>
+					{{ user.name }}
+				</div>
+				<div class="users__list-email">{{ user.email }}</div>
+				<div class="users__list-title" (click)="handleUndoDisableUser(user.id, user.userTypeBackup)">
+					<div class="users__title {{ user.userType }}">
+						{{ user.userType | userType }}
+					</div>
+					<div *ngIf="user.userType == 'disabled'" class="users__title {{ user.userType }} disabled-hover">
+						Enable user
+					</div>
+				</div>
+				<div class="users__list-date">07/04/1927</div>
+				<div class="users__list-karma">16</div>
+				<div class="users__list-options">
+					<i class="fa-solid fa-ellipsis-vertical"></i>
+					<i class="fa-solid fa-ellipsis-vertical"></i>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>

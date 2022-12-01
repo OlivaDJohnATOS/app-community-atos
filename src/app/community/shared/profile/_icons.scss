@@ -1,0 +1,20 @@
+.item{
+    &__icons{
+        margin-left: auto;
+        align-self: center;
+        display: flex;
+        opacity: 0.65;
+
+        > *{
+            width: 60px;
+        }
+
+        p{
+            margin: 0 8px;
+        }
+    }
+}
+
+.fa-chevron-right, .fa-chevron-left{
+    cursor: pointer;
+}

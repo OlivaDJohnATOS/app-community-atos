@@ -17,7 +17,6 @@ export class BoardService {
 	 * @returns Insert a new board on data base
 	 */
 	createBoard(boardData : Board){
-		console.log('Creating board...');
 		const newBoard = this.afs.collection('boards');
 		return newBoard.doc(this.afs.createId()).set(boardData);
 	}
@@ -28,19 +27,6 @@ export class BoardService {
 	 */
 	getBoardsList<Board>(){
 		const boardList = this.afs.collection<Board>('boards');
-		return boardList.valueChanges();
-	}
-
-	/**
-	 * Search a specific board
-	 * @param boardName Wanted board 🤐
-	 */
-	searchBoard<Board>(boardName: string){
-		//TODO: Cambiar sentencia de busqueda
-		const collection = this.afs.collection<Board>(
-			'boards',
-			ref => ref.where('boardName', '==', boardName)
-		)
-		return collection.valueChanges();
+		return boardList.valueChanges({ idField : 'id' });
 	}
 }

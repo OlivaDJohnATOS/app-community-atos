@@ -1,0 +1,26 @@
+<button class="options" (click)="onPressedOptions()">
+	<ul class="options__list" *ngIf="showOptionsList">
+		<li id="edit" *ngIf="canEditArticle" (click)="onEditArticle()">
+			<span class="material-symbols-outlined">
+				edit
+			</span>
+			<span class="options__list__actions">Edit</span>
+		</li>
+		<li id="delete" *ngIf="canDeleteArticle" (click)="onDeleteArticle()">
+			<span class="material-symbols-outlined">
+				delete
+			</span>
+			<span class="options__list__actions">Delete</span>
+		</li>
+		<li id="warning" *ngIf="canReportArticle" (click)="onReportArticle()">
+			<span class="material-symbols-outlined">
+				warning
+			</span>
+			<span class="options__list__actions">Report</span>
+		</li>
+	</ul>
+	<span class="material-symbols-outlined">
+		more_horiz
+	</span>
+</button>
+<div [ngClass]="{ 'active' : showOptionsList }" id="cover" (click)="onPressedCover()"></div>

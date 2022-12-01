@@ -1,0 +1,28 @@
+<article class="card">
+	<div class="desktop-version">
+		<app-likes [referenceArticleId]="idArticle"></app-likes>
+	</div>
+	<div class="content">
+		<header class="card__header">
+			<div class="mobile-version">
+				<app-likes [referenceArticleId]="idArticle"></app-likes>
+			</div>
+			<section class="card__header__user">
+				<img src="{{ userAuthorData.profilePicture }}"
+				class="card__header__user__profile" alt="{{ userAuthorData.name }}">
+				<div class="card__header__user__data">
+					<h5 routerLink="/profile/{{ userCreatedId }}" >{{ userAuthorData.name }}</h5>
+					<small>{{ date | date }}</small>
+				</div>
+			</section>
+		</header>
+		<hr>
+		<section class="card__content">
+			<h3>{{ title }}</h3>
+			<p>{{ descriptionContent }}</p>
+		</section>
+		<footer class="card__footer">
+			<a routerLink="/article/{{ idArticle }}">Show more</a>
+		</footer>
+	</div>
+</article>

@@ -5,8 +5,8 @@
 export const environment = {
 	production: false,
 	//* Angular Firebase Set up
-	firebaseAPIKey: 'AIzaSyAvXBjkILL17sNq9ys8S1X51Nkld4AsX3A',
-	firebaseConfig : {
+	// firebaseAPIKey: 'AIzaSyAvXBjkILL17sNq9ys8S1X51Nkld4AsX3A',
+	firebase : {
 		apiKey: "AIzaSyAvXBjkILL17sNq9ys8S1X51Nkld4AsX3A",
 		authDomain: "atos-community-upgrade.firebaseapp.com",
 		databaseURL: "https://atos-community-upgrade-default-rtdb.firebaseio.com",

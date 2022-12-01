@@ -1,0 +1,192 @@
+<main *ngIf="!isLoading; else loader">
+    <!-- <div class="profile__edit-banner"> -->
+        <div class="banner">
+            <img class="banner" [src]="banner" alt="">
+            <div class="banner-edit">
+                <input
+                    type="file"
+                    name="profileBanner"
+                    id="profileBanner"
+                    accept="image/jpeg, image/png, image/jpg"
+                    (change)="setProfileBanner($event)"
+                    >
+                    <label for="profileBanner">
+                        <i class="fa-solid fa-pen"></i>
+                    </label>
+                </div>
+        </div>
+    <section class="profile">
+        <button (click)="deleteMyUser()" class="profile__delete" title="Delete Profile"><i class="fa-solid fa-trash"></i></button>
+        <div class="profile__image">
+            <img
+                class="profile__image-img"
+                [src]="pfp" alt=""><div class="profile__loading"
+                [ngStyle]="{'display' : isProfilePictureUploading ? 'flex' : 'none'}">Loading...</div>
+                <div class="profile__image-edit">
+                    <input
+                        type="file"
+                        name="profilePicture"
+                        id="profilePicture"
+                        accept="image/jpeg, image/png, image/jpg"
+                        (change)="setProfilePhoto($event)">
+                    <label for="profilePicture">
+                        <i class="fa-solid fa-pen"></i>
+                    </label>
+                </div>
+        </div>
+        <article class="profile__info">
+            <h2 class="profile__info-name">{{myProfile.name | firstword}}</h2>
+            <span class="profile__info-description">{{myProfile.birthday | toDate | timeAgo | removeString:'ago'}} | {{ myProfile.work }} </span>
+        </article>
+    </section>
+    <section class="info">
+        <h2>Personal Information</h2>
+        <form class="info__items" [formGroup]="profileForm" (keydown.enter)="$event.preventDefault()">
+            <article class="info__items-item">
+                <label for="name">Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    formControlName="name">
+            </article>
+            <article class="info__items-item">
+                <label for="name">Email</label>
+                <input
+                    type="text"
+                    id="email"
+                    formControlName="email">
+            </article>
+            <article class="info__items-item">
+                <label for="name">Work</label>
+                <input
+                    type="text"
+                    id="work"
+                    formControlName="work">
+            </article>
+            <article class="info__items-item">
+                <label for="name">Website</label>
+                <input
+                    type="text"
+                    id="website"
+                    formControlName="website">
+            </article>
+            <div class="info__items-edit" (click)="enableEditing()">
+                <i class="fa-solid fa-pen"></i>
+            </div>
+        </form>
+    </section>
+    <section class="resume">
+        <article class="resume__list">
+            <h3>Skills / Languages</h3>
+            <div class="resume__list-items">
+                <ul class="resume__list-ul">
+                    <li *ngFor="let skill of myProfile.skills">
+                        {{skill}}
+                    </li>
+                    <!-- <li>
+                        <input type="text" class="resume__list-added" placeholder="Add Skill">
+                    </li> -->
+                    <li class="resume__list-add-li">
+                        <button class="resume__list-add" (click)="addSkill()">+</button>
+                    </li>
+                </ul>
+            </div>
+        </article>
+        <article class="posts">
+            <div class="posts__header">
+                <button class="posts__header-button selected" (click)="switchPosts(0)">My Posts</button>
+                <button class="posts__header-button" (click)="switchPosts(1)">Archived</button>
+            </div>
+            <div class="posts__content">
+                <div class="posts__content-header">
+                    <h3>Total</h3>
+                    <p><i class="fa-solid fa-paste"></i> {{posts.length}} Posts</p>
+                </div>
+                <div *ngIf="posts.length; else noPosts">
+                    <div class="posts__content-list" *ngFor="let post of posts | paginate: { itemsPerPage: 5, currentPage: page }">
+                        <div class="posts__content-text">
+                            <div class="content-title">{{post.titlePost}}</div>
+                            <div class="content-date">Published: {{post.date | timeAgo}}</div>
+                        </div>
+                        <div class="posts__content-util">
+                            <div class="content-misc" *ngIf="post.likes; else noLikes">
+                                <i class="fa-solid fa-heart"></i>
+                                {{post.likes.length}}
+                            </div>
+                            <ng-template #noLikes>
+                                <div class="content-misc">
+                                    <i class="fa-solid fa-heart"></i>
+                                    0
+                                </div>
+                            </ng-template>
+
+                            <div class="content-misc" *ngIf="post.comments; else noComments">
+                                <i class="fa-solid fa-comment"></i>
+                                {{post.comments}}
+                            </div>
+                            <ng-template #noComments>
+                                <div class="content-misc">
+                                    <i class="fa-solid fa-comment"></i>
+                                    0
+                                </div>
+                            </ng-template>
+
+                            <div class="content-misc" *ngIf="post.views; else noSeens">
+                                <i class="fa-solid fa-eye"></i>
+                                {{post.views}}
+                            </div>
+                            <ng-template #noSeens>
+                                <div class="content-misc">
+                                    <i class="fa-solid fa-eye"></i>
+                                    0
+                                </div>
+                            </ng-template>
+                            <i class="fa-solid fa-gear" (click)="onArticleSettings(post.id)"></i>
+                        </div>
+                    </div>
+                    <pagination-controls
+                        (pageChange)="page = $event"
+                        class="my-pagination"
+                        previousLabel=""
+                        nextLabel=""></pagination-controls>
+                </div>
+                <ng-template #noPosts>
+                    <div class="posts__content-empty">
+                        No content to display
+                    </div>
+                </ng-template>
+            </div>
+        </article>
+    </section>
+        <!-- <article class="resume__list second">
+            <div class="resume__list-paged">
+                <div class="resume__list-posts">
+                    <h3>Posts</h3>
+                    <h3>Total</h3>
+                    <p><i class="fa-solid fa-paste"></i> {{posts.length}} Posts</p>
+                </div>
+                <div class="resume__list-items">
+                    <div class="resume__list-item" *ngFor="let post of posts">
+                        <div class="item__text-content">
+                            <h4>{{post.title}}</h4>
+                            <p>Published: {{post.date}} </p>
+                        </div>
+                        <div class="item__icons">
+                            <p><i class="fa-solid fa-heart"></i> {{post.likes}} </p>
+                            <p><i class="fa-solid fa-comment"></i> {{post.comments}} </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="resume__list-pagination">
+                <i class="fa-solid fa-chevron-left"></i>
+                <div class="pagination"><p>1</p></div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </article> -->
+</main>
+<ng-template #loader>
+    <div class="lds-dual-ring"></div>
+</ng-template>
+

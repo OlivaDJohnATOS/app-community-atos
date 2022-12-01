@@ -1,0 +1,33 @@
+@import './sass/header', './sass/profile', './sass/responsive', './sass/boards';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.active{
+    text-decoration: underline;
+}
+
+.board{
+    &-url{
+        color: black;
+        text-decoration: none;
+        
+    }
+    
+    &-title{
+        color: black;
+        text-decoration: none;    
+    }
+}
+
+.lds-ring{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+
+

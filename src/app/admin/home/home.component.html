@@ -1,0 +1,61 @@
+<main class="home">
+    <section class="home__left">
+        <article class="home__left-header">
+            <div class="header__title" *ngIf="myUser">Hi!<br>{{ myUser.name }}</div>
+            <div class="lds-ring" *ngIf="!myUser"><div></div><div></div><div></div><div></div></div>
+            <div class="header__description">Welcome to the administrator dashboard.</div>
+        </article>
+        <article class="home__left-news">
+            <div class="news__title">HAPPENING NOW</div>
+            <div class="news__items">
+                <div class="item" *ngFor="let card of articleReport |
+				paginate : { itemsPerPage: 4, currentPage: page }" [routerLink]="['/article/', card.idItemReported]">
+                    <img src="{{card.idItemReported | parentImage | async }}" alt="">
+                    <div class="item__title">{{card.activity}} Report</div>
+                    <div class="item__description">{{ card.reason }}</div>
+                    <div class="item__footer">
+                        <div class="item__footer-icons">
+                            <i class="fa-solid fa-earth-americas"></i>
+                             {{card.idItemReported | parentName | async }}
+                        </div>
+                        <div class="item__footer-icons">
+                            <i class="fa-solid fa-clock"></i>
+                             {{ card.reportDate | timeAgo}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <pagination-controls class="my-pagination" (pageChange)="page = $event" previousLabel="" nextLabel="">
+            </pagination-controls>
+        </article>
+    </section>
+    <section class="home__right">
+        <article class="home__right-menu">
+            <!-- <div class="menu__notifications">
+                <i class="fa-solid fa-bell"></i>
+            </div> -->
+            <div class="menu__profile">
+                <img src="{{ myUser.profilePicture }}" alt="" *ngIf="myUser" [routerLink]="['/myprofile']">
+                <div class="lds-ring" *ngIf="!myUser"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </article>
+        <article class="home__right-reports">
+            <div class="reports__title">
+                Reports
+            </div>
+            <div *ngFor="let card of commentReport" class="comment-reports">
+                <div class="reports__content">
+                    <div class="reports__content-card" [routerLink]="['/admin/report',card.id]">
+                        <img class="card__image" src="{{ card.idItemReported | parentComment | async }}" alt="">
+                        <div class="card__title">
+                            {{card.activity}} Report
+                        </div>
+                        <div class="card__description">
+                            {{ card.reason}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+</main> 

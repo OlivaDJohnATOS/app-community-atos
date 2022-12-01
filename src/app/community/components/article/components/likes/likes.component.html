@@ -1,0 +1,10 @@
+<ul class="likes">
+	<li>
+		<button [ngClass]="classNameLikeButton" (click)="onToggleLikeButton()">
+			<span class="material-icons">favorite</span>
+		</button>
+	</li>
+	<li>
+		<label class="likes__counter">{{ counter }}</label>
+	</li>
+</ul>

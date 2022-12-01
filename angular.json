@@ -38,12 +38,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "7kb"
                 }
               ],
               "fileReplacements": [
@@ -96,9 +96,20 @@
               "src/assets"
             ],
             "styles": [
-              "src/sass/styles.scss"
+              "src/sass/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "app-community-atos:build:production",
+            "firebaseProject": "atos-community-upgrade",
+            "firebaseHostingSite": "atos-community-upgrade"
           }
         }
       }

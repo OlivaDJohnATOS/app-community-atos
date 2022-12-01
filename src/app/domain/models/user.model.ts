@@ -1,11 +1,17 @@
 export interface User{
-	id? : number;
-	firstName: string;
-	lastName: string;
+	id? : string;
+	name?: string;
 	birthday: string;
 	email: string;
 	password: string;
-	userType: 'normal-user' | 'auth-user' | 'moderator' | 'admin';
+	profilePicture? : string;
+	bannerImage?: string;
+	userType: 'normal-user' | 'auth-user' | 'moderator' | 'admin' | 'disabled';
+	userTypeBackup: 'normal-user' | 'auth-user' | 'moderator' | 'admin';
+	website?: string;
+	work?: string;
+	checked?: boolean;
+	skills?: string[];
 }
 
 /**

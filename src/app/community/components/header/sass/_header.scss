@@ -1,0 +1,133 @@
+.header{
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+
+    &__web{
+        position: fixed;
+        height: 10vh;
+        box-shadow: 0 0 3px 4px lightgray;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+        background: white;
+        transition: height 0.5s, box-shadow 1s;
+		z-index: 99;
+    }
+
+    &__mobile{
+        width: 0;
+        transition: all 0.7s;
+        position: fixed;
+        height: 100%;
+        z-index: 12;
+        background: white;
+        z-index: 10;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+
+        *{
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.3s, opacity 0.1s linear;
+        }
+
+        &-menu {
+            display: flex;
+            margin: 0 auto;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: -10vh;
+            height: 100vh;
+            a{
+                padding: 20px;
+                font-size: 2rem;
+                width: 100vw;
+                text-align: center;
+            }
+        }
+
+        hr{
+            width: 100%;
+            align-self: center;
+            margin: 20px 0 10px 0;
+        }
+    }
+
+    &__logo{
+        width: 60px;
+        margin: 5px 20px 0 40px;
+        cursor: pointer;
+        top: 3.8%;
+    }
+
+    &__menu{
+        list-style: none;
+        top: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        li{
+            display: block;
+            text-align: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            cursor: pointer;
+
+            a{
+                text-decoration: none;
+                color: black;
+            }
+        }
+    }
+
+    &__toggle{
+        position: relative;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+        margin-left: auto;
+        cursor: pointer;
+        display: none;
+        justify-content: center;
+        align-items: center;
+
+        &:before{
+            content: '';
+            position: absolute;
+            width: 32px;
+            height: 2px;
+            background: black;
+            transform: translateY(-10px);
+            box-shadow: 0 10px black;
+            transition: all 0.5s;
+        }
+
+        &:after{
+            content: '';
+            position: absolute;
+            width: 32px;
+            height: 2px;
+            background: black;
+            transform: translateY(10px);
+            transition: all 0.5s;
+        }
+    }
+
+    &.active-menu &__toggle, &.active-menu &__logo{
+        display: none;
+    }
+}
+
+@keyframes go-right{
+    from{
+        transform: translateX(-100vw);
+    }
+    to{
+        transform: translateX(0%);
+    }
+}
